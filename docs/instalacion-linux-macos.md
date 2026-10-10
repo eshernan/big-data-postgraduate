@@ -2,7 +2,7 @@
 
 [Índice](../README.md) · [Windows/WSL](instalacion-wsl.md) · [Datos y ejecución](entorno.md) · [Notebooks](../kit/Notebooks/README.md)
 
-Esta guía prepara el mismo entorno del curso de forma nativa: Python 3.12, un único `.venv`, JDK 21, Spark y Jupyter, con las versiones de bibliotecas fijadas en el repositorio. No hace falta instalar WSL en Linux ni en macOS. Los comandos se ejecutan en la terminal con Bash o Zsh; para Fish, abrir primero una sesión Bash.
+Esta guía prepara el mismo entorno del curso de forma nativa: Python 3.12, un `.venv` base CPU, JDK 21, Spark y Jupyter, con las versiones de bibliotecas fijadas en el repositorio. No hace falta instalar WSL en Linux ni en macOS. Los comandos se ejecutan en la terminal con Bash o Zsh; para Fish, abrir primero una sesión Bash.
 
 ## 1. Identificar el equipo e instalar herramientas
 
@@ -134,15 +134,19 @@ uv --version
 uv python install 3.12
 cd "$HOME/bigdata"
 cd big-data-postgraduate
-uv venv --python 3.12 --seed .venv
+if [ ! -e .venv ]; then
+    uv venv --python 3.12 --seed .venv
+fi
 source .venv/bin/activate
 python --version
-python -c 'import sys; print(sys.executable)'
+python -c 'import sys, platform; assert sys.version_info[:2] == (3, 12); assert sys.prefix != sys.base_prefix; print(sys.executable, platform.machine())'
 ```
 
 Debe aparecer Python `3.12.x` y un ejecutable dentro de la carpeta `.venv` de este repositorio. Si el entorno ya existe y corresponde a este sistema, activarlo sin recrearlo. No copiar un virtualenv de Windows, de otro equipo o de otra arquitectura.
 
 [Instalador de uv](https://docs.astral.sh/uv/getting-started/installation/) · [Python con uv](https://docs.astral.sh/uv/guides/install-python/) · [Entornos virtuales](https://docs.astral.sh/uv/pip/environments/).
+
+El bloque anterior conserva un entorno existente. Si la comprobación de Python falla o la carpeta pertenece a otro sistema, no instalar paquetes encima; seguir la [reconstrucción del entorno](entornos-virtuales.md#5-retomar-o-reconstruir). La única ampliación con entorno separado es GPU; las clases ordinarias siguen usando `.venv`.
 
 ## 4. Instalar bibliotecas y registrar el kernel
 
@@ -158,7 +162,7 @@ python -c "import duckdb; print(duckdb.sql('SELECT 2 + 2').fetchone())"
 
 La consulta debe devolver `(4,)` y `pip check` no debe reportar incompatibilidades. Los archivos de requisitos son la referencia de versiones. No sustituirlos por instalaciones sin versión ni usar `sudo pip`. GeoPandas, Rasterio y Matplotlib cubren los ejercicios de mapas dentro de Jupyter; no se necesita QGIS.
 
-Para Linux con GPU NVIDIA y CUDA 12, se puede agregar el [soporte opcional de Polars GPU](entorno.md#polars-con-gpu-opcional) mediante `kit/requirements_gpu.txt`. En macOS se mantiene Polars en CPU.
+La instalación anterior es **CPU**. En Linux, la [ampliación opcional de Polars GPU](polars-gpu.md) exige preparar primero controlador NVIDIA y CUDA Toolkit compatibles; después se utiliza `.venv-gpu`. En macOS Intel y Apple Silicon se mantiene CPU, sin instalar requisitos NVIDIA.
 
 ## 5. Configurar JDK 21 y Spark
 
@@ -313,7 +317,7 @@ Si hay modificaciones propias, conservarlas antes de actualizar; no usar un rese
 | Síntoma | Comprobación |
 |---|---|
 | `brew` o `uv` no se encuentra | Completar el PATH indicado por su instalador; abrir otra terminal o cargar el archivo de entorno correspondiente. |
-| Python incorrecto o `ModuleNotFoundError` | Activar `.venv`, revisar `python -c 'import sys; print(sys.executable)'` y seleccionar el kernel del curso. |
+| Python incorrecto o `ModuleNotFoundError` | Activar `.venv`, revisar `python -c 'import sys, platform; assert sys.version_info[:2] == (3, 12); assert sys.prefix != sys.base_prefix; print(sys.executable, platform.machine())'` y seleccionar el kernel del curso. |
 | Error al instalar una rueda binaria | Revisar Python 3.12, arquitectura y versión del sistema; no mezclar paquetes Intel y ARM ni cambiar versiones fijadas sin revisar compatibilidad. |
 | `JAVA_GATEWAY_EXITED` | Revisar JDK 21, JAVA_HOME, `java -version` y `javac -version`; cargar el entorno antes de iniciar Jupyter. |
 | Spark no resuelve el nombre local del equipo | Revisar hostname/red; para la prueba local puede usarse `export SPARK_LOCAL_IP=127.0.0.1` antes de iniciar Spark. |

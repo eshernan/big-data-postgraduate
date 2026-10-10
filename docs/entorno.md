@@ -4,7 +4,7 @@
 
 Como apoyo para las personas con poca experiencia en la CLI de Linux, se anexó la [guía de línea de comandos](guia-cli-linux/README.md), con ejemplos de navegación, consulta y verificación de archivos, además de un cheat sheet de 100 comandos y sus opciones habituales.
 
-Preparar el entorno de la guía correspondiente al sistema. Los ejemplos de navegación siguientes usan la ruta Windows/WSL; en Linux/macOS sustituir la carpeta base por `"$HOME/bigdata"`. Mantener los comandos relativos, los requisitos y el `.venv` único. Antes de iniciar en WSL:
+Preparar el entorno de la guía correspondiente al sistema. Los ejemplos de navegación siguientes usan la ruta Windows/WSL; en Linux/macOS sustituir la carpeta base por `"$HOME/bigdata"`. Mantener los comandos relativos, los requisitos y el `.venv` base CPU. Antes de iniciar en WSL:
 
 ```bash
 cd /mnt/c/Users/TUPTC/bigdata
@@ -17,31 +17,9 @@ El clon no incluye los originales agroambientales ni los completos PQRS; `--veri
 
 ## Polars con GPU (opcional)
 
-El motor GPU requiere una GPU **NVIDIA compatible**, CUDA 12 y Linux o Windows con **WSL 2**. Consultar la [matriz de compatibilidad e instalación de RAPIDS](https://docs.rapids.ai/install/) para la GPU, el controlador, CUDA y la distribución. **No funciona en macOS**, incluidos los equipos Apple Silicon M1–M4 e Intel; allí se utiliza Polars en CPU.
+La instalación NVIDIA tiene una [guía independiente](polars-gpu.md): primero se preparan el controlador y CUDA Toolkit según Linux o WSL 2, y después los paquetes Python en `.venv-gpu`. No ejecutar esa instalación como parte de la preparación CPU. En macOS se utiliza CPU.
 
-Con el entorno del curso preparado, desde la raíz del repositorio:
-
-```bash
-source .venv/bin/activate
-nvidia-smi
-python -m pip install -r kit/requirements_gpu.txt
-python -m pip check
-```
-
-El archivo agrega `cudf-polars-cu12`, equivalente al paquete solicitado con `pip install cudf-polars-cu12`, y conserva las restricciones de versiones del curso, incluido `polars==1.35.2`. El backend GPU queda sin fijar hasta validar una versión en el equipo de destino. Si pip informa un conflicto, revisar la compatibilidad antes de modificar las versiones del curso; registrar la combinación validada con `python -m pip freeze`. En WSL 2, seguir la preparación del controlador NVIDIA en Windows indicada por RAPIDS y ejecutar estos comandos dentro de Ubuntu. `nvidia-smi` comprueba que la GPU sea visible, pero no sustituye la verificación de CUDA ni la prueba de ejecución.
-
-Instalar el paquete no activa automáticamente la GPU en los ejercicios. La [documentación de Polars](https://docs.pola.rs/user-guide/gpu-support/) explica su uso con consultas lazy. Prueba mínima desde el entorno o su kernel de Jupyter:
-
-```python
-import polars as pl
-
-consulta = pl.LazyFrame({"valor": [1, 2, 3]}).select(pl.col("valor").sum())
-resultado = consulta.collect(engine=pl.GPUEngine(raise_on_fail=True))
-assert resultado.item() == 6
-print(resultado)
-```
-
-`raise_on_fail=True` hace visible un fallo del motor GPU en lugar de permitir una vuelta silenciosa a CPU. La instalación y esta prueba requieren validación en un equipo NVIDIA compatible; no se han ejecutado en GPU como parte de esta actualización. El soporte GPU es opcional para el curso.
+Consultar [entornos virtuales por plataforma](entornos-virtuales.md) para crear, activar y verificar `.venv`, así como para la alternativa Windows nativa de las guías rápidas.
 
 ## Tres rutas para obtener los datos
 
@@ -122,4 +100,4 @@ Los scripts vigentes resuelven sus fuentes y salidas a partir de su archivo dent
 
 ## Ejecución geoespacial
 
-Usar el único entorno `.venv` del curso con GeoPandas, Pyogrio, Rasterio y Matplotlib. Desde `kit/`, `python talleres.py geografia` ejecuta E08, `python talleres.py suelo` prepara E09 y `python talleres.py clima` prepara E11. Los mapas se generan en Jupyter o como PNG en `salidas/`. `python talleres.py clima_suelo` reúne ambos informes para compatibilidad y requiere las cuatro fuentes SoilGrids, WoSIS, NASA y CHIRPS. Consultar el [índice de notebooks](../kit/Notebooks/README.md).
+Usar el entorno base CPU `.venv` del curso con GeoPandas, Pyogrio, Rasterio y Matplotlib. Desde `kit/`, `python talleres.py geografia` ejecuta E08, `python talleres.py suelo` prepara E09 y `python talleres.py clima` prepara E11. Los mapas se generan en Jupyter o como PNG en `salidas/`. `python talleres.py clima_suelo` reúne ambos informes para compatibilidad y requiere las cuatro fuentes SoilGrids, WoSIS, NASA y CHIRPS. Consultar el [índice de notebooks](../kit/Notebooks/README.md).

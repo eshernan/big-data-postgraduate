@@ -343,6 +343,8 @@ assert anterior.filter(pl.col("id") == 3)["cantidad_anterior"].item() == 2
 
 **Cuándo aprovechar Polars:** transformaciones encadenadas, expresiones nativas y lectura diferida. **Cuándo conservar pandas:** exploración pequeña, uso del índice o integración que ya funciona. Comparar tiempos con los mismos datos, tipos, nulos y resultados; esta guía no afirma un factor universal de aceleración.
 
+La ampliación opcional [Polars con GPU NVIDIA](polars-gpu.md) se instala por separado, después de preparar controlador y CUDA. Esta guía rápida utiliza CPU.
+
 ## 14. Referencias
 
 - [Comparación oficial con pandas](https://docs.pola.rs/user-guide/migration/pandas/)

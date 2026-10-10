@@ -10,18 +10,21 @@ El curso emplea dos dominios abiertos: PQRS/PQRD de Supersalud y datos agroambie
 
 ## Preparar el equipo
 
-Antes de los talleres, preparar el ambiente siguiendo la guía del sistema operativo. Ambas preparan Git, Python 3.12, un único `.venv`, JDK Java 21, Spark, Jupyter y las bibliotecas fijadas del curso:
+Antes de los talleres, preparar el ambiente siguiendo la guía del sistema operativo. Ambas preparan Git, Python 3.12, un `.venv` base CPU, JDK Java 21, Spark, Jupyter y las bibliotecas fijadas del curso:
 
 - [Windows: WSL 2 con Ubuntu-26.04](docs/instalacion-wsl.md).
 - [Linux: instalación nativa](docs/instalacion-linux-macos.md#linux), con paquetes para Ubuntu/Debian y Fedora.
 - [macOS: Apple Silicon M1, M2, M3, M4 e Intel](docs/instalacion-linux-macos.md#macos), con Homebrew y `brew install --cask temurin@21` para instalar el JDK 21 en ambas arquitecturas.
+
+- [Entornos virtuales por plataforma](docs/entornos-virtuales.md): creación, activación, kernels y alternativa Windows nativa para las guías rápidas.
+- [Polars con GPU NVIDIA, instalación opcional independiente](docs/polars-gpu.md): prerrequisitos del sistema, CUDA y entorno GPU. No forma parte de la instalación base.
 
 ### Instrucciones generales de preparación
 
 1. **Revisar el equipo:** identificar sistema operativo y arquitectura, disponer de conexión a Internet y permisos de administrador para instalar herramientas. Planificar 16 GB de RAM y 20 GB libres; con 8 GB, comenzar con muestras y Spark `local[2]`.
 2. **Elegir dónde ejecutar:** en Windows, instalar WSL 2 y trabajar dentro de Ubuntu; en Linux y macOS, usar la terminal nativa. Los comandos PowerShell de la guía WSL se ejecutan en Windows y los bloques Bash, dentro de Ubuntu.
 3. **Instalar herramientas y clonar el curso:** seguir la guía elegida para instalar Git y JDK 21, clonar `main` y preparar Python 3.12 mediante `uv`, sin reemplazar el Python del sistema.
-4. **Crear un solo entorno virtual:** mantener `.venv` en la raíz del repositorio e instalar allí los archivos de requisitos del kit. No compartir ese entorno entre Windows, WSL, Linux, macOS o arquitecturas distintas.
+4. **Crear el entorno base CPU:** mantener `.venv` en la raíz del repositorio e instalar allí los requisitos base, PQRS y notebooks; Spark se añade en su etapa. La ampliación GPU usa `.venv-gpu` según su guía independiente. No compartir ese entorno entre Windows, WSL, Linux, macOS o arquitecturas distintas.
 5. **Configurar Java y Jupyter:** establecer `JAVA_HOME`, comprobar `java -version` y `javac -version` (ambos 21), registrar el kernel y seleccionarlo en los notebooks. En macOS, verificar además que Java corresponda a ARM64 o Intel según el equipo.
 6. **Verificar antes del taller:** comprobar Python 3.12, ejecutar `python -m pip check`, realizar la prueba de Spark de la guía y abrir un notebook con el kernel del curso. Adaptar las rutas y preparar los datos según [datos y ejecución](docs/entorno.md).
 

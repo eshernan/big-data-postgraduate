@@ -2,16 +2,13 @@
 Preparado por el PhD Esteban Hernández, CyberColombia
 Programa del 2 de octubre al 7 de noviembre de 2026. 64 horas efectivas de clase en línea. Recesos y almuerzos excluidos.
 
-ENTORNO: Python 3.12 y un único .venv por instalación
-Polars GPU opcional (NVIDIA/CUDA 12, Linux o WSL 2): requirements_gpu.txt.
-Desde la raíz: python -m pip install -r kit/requirements_gpu.txt
-Preparación y prueba: ../docs/entorno.md#polars-con-gpu-opcional. No instalar en macOS.
-Windows: ../docs/instalacion-wsl.md
-Linux/macOS nativo: ../docs/instalacion-linux-macos.md
-Los comandos siguientes muestran la ruta WSL; en Linux/macOS usar $HOME/bigdata como carpeta base.
-Seguir ../docs/instalacion-wsl.md desde PowerShell para instalar WSL y Ubuntu.
-La guía comienza en /mnt/c/Users/TUPTC/bigdata, clona main dentro de big-data-postgraduate y crea .venv en la raíz del repositorio.
-Python 3.12, JDK 21, Jupyter y bibliotecas se instalan dentro de Ubuntu.
+## Preparación del entorno
+
+Python 3.12 y un entorno base CPU `.venv` por instalación. Seguir [Windows/WSL](../docs/instalacion-wsl.md) o [Linux/macOS](../docs/instalacion-linux-macos.md). La [referencia de entornos virtuales](../docs/entornos-virtuales.md) explica creación, activación y kernels en cada plataforma.
+
+La [instalación opcional de Polars GPU NVIDIA](../docs/polars-gpu.md) es independiente: preparar primero controlador y CUDA Toolkit compatibles y luego instalar `requirements_gpu.txt` en `.venv-gpu`, solo Linux/WSL 2. No instalar esos requisitos en macOS ni como parte del entorno CPU.
+
+Los comandos siguientes usan la ruta WSL; en Linux/macOS usar `$HOME/bigdata` como carpeta base. La guía WSL instala Python, JDK 21 y Jupyter dentro de Ubuntu. No compartir ese virtualenv con Windows nativo.
 
 En cada sesión, dentro de Ubuntu:
 
@@ -25,7 +22,7 @@ python pqrs_talleres.py perfil
 ```
 
 
-Las instalaciones de paquetes y herramientas se realizan según la guía WSL.
+Las instalaciones de paquetes y herramientas se realizan según la guía del sistema elegido.
 Después de descargar las fuentes, ejecutar la ruta del taller correspondiente.
 Orden agroambiental: perfil, calidad, consultas; luego geografia, suelo, clima,
 benchmark o modelo según la sesión. Spark por lotes requiere calidad y consultas.

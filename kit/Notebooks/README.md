@@ -4,7 +4,9 @@ Preparado por el PhD Esteban Hernández, CyberColombia.
 
 P01: 3 de octubre. P02: 9 de octubre. P03: 10 de octubre. P04: 23 de octubre. I01: 24 de octubre. Los notebooks acompañan los talleres y comparten las horas de clase; no añaden entregas obligatorias.
 
-Preparar el único `.venv` de la raíz según la guía [Windows/WSL](../../docs/instalacion-wsl.md) o [Linux/macOS](../../docs/instalacion-linux-macos.md). En instalación nativa, adaptar `repositorio` o `REPO` a la ruta real como indica esa guía. Abrir desde `kit/` o `kit/Notebooks/`, usar el mismo entorno Python y ejecutar en orden. Los prerrequisitos son explícitos: P03 y P04 leen los productos de P02; P03 requiere DIVIPOLA; no ejecuta P02 ni descarga fuentes silenciosamente.
+Preparar el `.venv` base CPU de la raíz según la guía [Windows/WSL](../../docs/instalacion-wsl.md) o [Linux/macOS](../../docs/instalacion-linux-macos.md). En instalación nativa, adaptar `repositorio` o `REPO` a la ruta real como indica esa guía. Abrir desde `kit/` o `kit/Notebooks/`, usar el mismo entorno Python y ejecutar en orden. Los prerrequisitos son explícitos: P03 y P04 leen los productos de P02; P03 requiere DIVIPOLA; no ejecuta P02 ni descarga fuentes silenciosamente.
+
+Para crear o comprobar el entorno y el kernel, consultar [entornos por plataforma](../../docs/entornos-virtuales.md). La [ampliación NVIDIA GPU](../../docs/polars-gpu.md) usa `.venv-gpu` y su propio kernel; no es necesaria para estos notebooks.
 
 Los notebooks históricos se conservan en `supersalud/`, con su procedencia y limitaciones, y no son la guía de ejecución actual.
 
@@ -64,4 +66,4 @@ El número 04 identifica el notebook PQRS existente, que se usa el 23 y 24 de oc
 3. **E08 Geoespacial:** geometrías, unión municipal e intersecciones.
 4. **E09 Geoespacial:** ráster, pH, perfiles y profundidad.
 
-Preparar JDK 21 y `requirements_spark.txt` en el único `.venv` de la raíz según la guía WSL o Linux/macOS. Spark usa `local[2]`. Cerrar su sesión al terminar cada notebook. 05 y 06 guardan productos en `kit/salidas/E07`; 06 requiere haber completado 05. Los scripts del kit quedan como referencia posterior de automatización. La entrega del sábado integra los controles Spark, plan explicado, consulta de ventana y evidencias E08/E09; no añade una entrega el viernes.
+Preparar JDK 21 y `requirements_spark.txt` en el `.venv` base CPU de la raíz según la guía WSL o Linux/macOS. Spark usa `local[2]`. Cerrar su sesión al terminar cada notebook. 05 y 06 guardan productos en `kit/salidas/E07`; 06 requiere haber completado 05. Los scripts del kit quedan como referencia posterior de automatización. La entrega del sábado integra los controles Spark, plan explicado, consulta de ventana y evidencias E08/E09; no añade una entrega el viernes.
