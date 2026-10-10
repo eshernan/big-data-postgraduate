@@ -1,0 +1,7 @@
+# Opcional: Polars GPU con NVIDIA y CUDA 12, solo Linux o WSL 2.
+# Consultar ../docs/entorno.md#polars-con-gpu-opcional antes de instalar.
+# Conservar las versiones del curso al resolver las dependencias GPU.
+-c requirements.txt
+-c requirements_notebooks.txt
+-r requirements_pqrs.txt
+cudf-polars-cu12

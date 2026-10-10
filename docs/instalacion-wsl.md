@@ -111,6 +111,8 @@ python -c "import duckdb; print(duckdb.sql('SELECT 2 + 2').fetchone())"
 
 La consulta debe devolver `(4,)`.
 
+Si el equipo tiene GPU NVIDIA compatible con CUDA 12 y accesible desde WSL 2, agregar el [soporte opcional de Polars GPU](entorno.md#polars-con-gpu-opcional) mediante `kit/requirements_gpu.txt`.
+
 ## 5. Configurar Java y Spark
 
 El paquete `openjdk-21-jdk` del paso 2 incluye `java` y `javac`. Guardar la configuración en un archivo del usuario y cargarlo desde Bash:

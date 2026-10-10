@@ -158,6 +158,8 @@ python -c "import duckdb; print(duckdb.sql('SELECT 2 + 2').fetchone())"
 
 La consulta debe devolver `(4,)` y `pip check` no debe reportar incompatibilidades. Los archivos de requisitos son la referencia de versiones. No sustituirlos por instalaciones sin versión ni usar `sudo pip`. GeoPandas, Rasterio y Matplotlib cubren los ejercicios de mapas dentro de Jupyter; no se necesita QGIS.
 
+Para Linux con GPU NVIDIA y CUDA 12, se puede agregar el [soporte opcional de Polars GPU](entorno.md#polars-con-gpu-opcional) mediante `kit/requirements_gpu.txt`. En macOS se mantiene Polars en CPU.
+
 ## 5. Configurar JDK 21 y Spark
 
 Ejecutar **solo el bloque de Java que corresponda al sistema**. Los bloques crean el archivo de configuración del curso `~/.config/bigdata/entorno.sh`; si ya contiene ajustes propios, revisarlo e integrarlos antes de reemplazarlo.

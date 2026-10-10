@@ -15,6 +15,34 @@ cd kit
 
 El clon no incluye los originales agroambientales ni los completos PQRS; `--verificar` requiere obtener antes todas las fuentes correspondientes.
 
+## Polars con GPU (opcional)
+
+El motor GPU requiere una GPU **NVIDIA compatible**, CUDA 12 y Linux o Windows con **WSL 2**. Consultar la [matriz de compatibilidad e instalación de RAPIDS](https://docs.rapids.ai/install/) para la GPU, el controlador, CUDA y la distribución. **No funciona en macOS**, incluidos los equipos Apple Silicon M1–M4 e Intel; allí se utiliza Polars en CPU.
+
+Con el entorno del curso preparado, desde la raíz del repositorio:
+
+```bash
+source .venv/bin/activate
+nvidia-smi
+python -m pip install -r kit/requirements_gpu.txt
+python -m pip check
+```
+
+El archivo agrega `cudf-polars-cu12`, equivalente al paquete solicitado con `pip install cudf-polars-cu12`, y conserva las restricciones de versiones del curso, incluido `polars==1.35.2`. El backend GPU queda sin fijar hasta validar una versión en el equipo de destino. Si pip informa un conflicto, revisar la compatibilidad antes de modificar las versiones del curso; registrar la combinación validada con `python -m pip freeze`. En WSL 2, seguir la preparación del controlador NVIDIA en Windows indicada por RAPIDS y ejecutar estos comandos dentro de Ubuntu. `nvidia-smi` comprueba que la GPU sea visible, pero no sustituye la verificación de CUDA ni la prueba de ejecución.
+
+Instalar el paquete no activa automáticamente la GPU en los ejercicios. La [documentación de Polars](https://docs.pola.rs/user-guide/gpu-support/) explica su uso con consultas lazy. Prueba mínima desde el entorno o su kernel de Jupyter:
+
+```python
+import polars as pl
+
+consulta = pl.LazyFrame({"valor": [1, 2, 3]}).select(pl.col("valor").sum())
+resultado = consulta.collect(engine=pl.GPUEngine(raise_on_fail=True))
+assert resultado.item() == 6
+print(resultado)
+```
+
+`raise_on_fail=True` hace visible un fallo del motor GPU en lugar de permitir una vuelta silenciosa a CPU. La instalación y esta prueba requieren validación en un equipo NVIDIA compatible; no se han ejecutado en GPU como parte de esta actualización. El soporte GPU es opcional para el curso.
+
 ## Tres rutas para obtener los datos
 
 - Ruta A, recomendada para clase: descomprimir el paquete docente, que ya contiene data/raw. Ejecutar --verificar. Permite continuar sin Internet una vez instalado el software.
