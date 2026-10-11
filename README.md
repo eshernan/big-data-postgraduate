@@ -56,6 +56,7 @@ Material de consulta y práctica para acompañar los ejercicios del curso.
 - [Git y GitHub: flujo de trabajo de los ejercicios](docs/guia-git/README.md): guía ilustrada sobre clones, forks, ramas, commits, PR, trabajo compartido y resolución de conflictos. Incluye seis escenarios y un desafío integrador. La [versión HTML](docs/guia-git/index.html) puede abrirse en el navegador después de clonar o descargar el repositorio; sus imágenes están incluidas en la misma carpeta.
 - [Guía práctica de pandas](docs/manual-pandas.md): inspección, filtros, consultas y operaciones sobre los CSV del curso.
 - [Guía rápida de Polars](docs/manual-polars.md): ejemplos mínimos, equivalencias con pandas y ventajas de las expresiones y la ejecución diferida.
+- [Polars con GPU NVIDIA: instalación y ejecución CPU/GPU](docs/polars-gpu.md): **solo para equipos con GPU NVIDIA compatible en Linux o WSL 2**; requiere controlador y CUDA Toolkit compatibles. Incluye entorno GPU independiente, selección del motor y regreso a CPU. Es opcional; los talleres funcionan en CPU.
 - [Guía rápida de DuckDB](docs/manual-duckdb.md): ejemplos mínimos de SQL, comparaciones con pandas y consultas sobre archivos Parquet.
 - Preparación del entorno: [Windows/WSL](docs/instalacion-wsl.md) o [Linux/macOS](docs/instalacion-linux-macos.md).
 
